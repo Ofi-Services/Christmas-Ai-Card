@@ -1,0 +1,309 @@
+* {
+  box-sizing: border-box;
+}
+
+.app {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #050505 0%, #1a1a1a 50%, #2a2a2a 100%);
+  font-family: 'Arial', sans-serif;
+  overflow: hidden;
+}
+
+.christmas-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.top-logos {
+  position: fixed;
+  top: 15px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  z-index: 1001;
+}
+
+.company-logo {
+  width: 120px;
+  height: auto;
+  opacity: 0.9;
+  filter: brightness(1.2);
+}
+
+.plus-sign {
+  color: #ffffff;
+  font-size: 2rem;
+  font-weight: bold;
+  opacity: 0.8;
+}
+
+.music-toggle-btn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 1002;
+  background: #cca23f;
+  border: none;
+  border-radius: 50%;
+  width: 45px;
+  height: 45px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 15px rgba(204, 162, 63, 0.3);
+}
+
+.music-toggle-btn:hover {
+  background: #e6c466;
+  transform: scale(1.1);
+  box-shadow: 0 6px 20px rgba(204, 162, 63, 0.4);
+}
+
+.music-toggle-btn::before {
+  content: '';
+  width: 0;
+  height: 0;
+  border-left: 10px solid #ffffff;
+  border-top: 6px solid transparent;
+  border-bottom: 6px solid transparent;
+  margin-left: 2px;
+}
+
+.music-toggle-btn[aria-label*="Pause"]::before {
+  content: '';
+  width: 3px;
+  height: 12px;
+  border-left: 3px solid #ffffff;
+  border-right: 3px solid #ffffff;
+  border-top: none;
+  border-bottom: none;
+  margin-left: 0;
+}
+
+/* Particles background styling - bottom half only */
+.christmas-bg canvas {
+  position: absolute !important;
+  top: 50% !important;
+  left: 0 !important;
+  width: 100% !important;
+  height: 50% !important;
+  z-index: 2 !important;
+  pointer-events: none !important;
+  filter: invert(1) brightness(2) !important;
+  opacity: 0.3 !important;
+}
+
+/* Force white particles and lines */
+.christmas-bg * {
+  color: #ffffff !important;
+  fill: #ffffff !important;
+  stroke: #ffffff !important;
+}
+
+/* Override any default particle colors to ensure white */
+.christmas-bg canvas {
+  filter: invert(1) !important;
+}
+
+.christmas-bg canvas * {
+  color: #ffffff !important;
+  stroke: #ffffff !important;
+  fill: #ffffff !important;
+}
+
+/* Force white for all SVG elements in particles */
+.christmas-bg svg * {
+  stroke: #ffffff !important;
+  fill: #ffffff !important;
+}
+
+.christmas-bg path {
+  stroke: #ffffff !important;
+  fill: none !important;
+}
+
+.christmas-bg circle {
+  fill: #ffffff !important;
+  stroke: #ffffff !important;
+}
+
+.slide {
+  position: relative;
+  max-width: 800px;
+  width: 90%;
+  background: transparent;
+  border-radius: 20px;
+  padding: 3rem;
+  text-align: center;
+  z-index: 10;
+  animation: slideInFromRight 0.5s ease-out;
+}
+
+.slide.animating {
+  animation: slideOutToLeft 0.5s ease-in forwards;
+}
+
+@keyframes slideInFromRight {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideOutToLeft {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+}
+
+.slide-content {
+  margin-bottom: 2rem;
+}
+
+.slide-title {
+  font-size: 3rem;
+  font-weight: bold;
+  color: #ffffff;
+  margin-bottom: 1rem;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.slide-subtitle {
+  font-size: 1.3rem;
+  color: #ffffff;
+  margin-bottom: 2rem;
+  line-height: 1.5;
+}
+
+.slide-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin: 2rem 0;
+}
+
+.list-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-size: 1.1rem;
+  color: #ffffff;
+  padding: 0.5rem 1rem;
+  background: rgba(204, 162, 63, 0.15);
+  border-radius: 10px;
+  border-left: 4px solid #cca23f;
+}
+
+.list-bullet {
+  font-size: 1.2em;
+}
+
+.slide-footer-text {
+  margin-top: 2rem;
+  font-size: 1.1rem;
+  color: #cca23f;
+  font-style: italic;
+  font-weight: 500;
+}
+
+.slide-footer {
+  margin-top: 2rem;
+}
+
+.progress-bar-top {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.1);
+  z-index: 1000;
+}
+
+.progress-fill-top {
+  height: 100%;
+  background: linear-gradient(90deg, #cca23f, #e6c466);
+  transition: width 0.3s ease;
+}
+
+.navigation {
+  position: absolute;
+  bottom: -60px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.nav-btn {
+  padding: 0.8rem 1.5rem;
+  background: linear-gradient(135deg, #cca23f, #e6c466);
+  color: white;
+  border: none;
+  border-radius: 25px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(204, 162, 63, 0.3);
+}
+
+.nav-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(204, 162, 63, 0.4);
+}
+
+.nav-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+@media (max-width: 768px) {
+  .slide {
+    width: 95%;
+    padding: 2rem;
+  }
+  
+  .slide-title {
+    font-size: 2rem;
+  }
+  
+  .slide-subtitle {
+    font-size: 1.1rem;
+  }
+  
+  .navigation {
+    position: static;
+    margin-top: 2rem;
+    transform: none;
+  }
+  
+  /* Particle positioning on mobile */
+  .christmas-bg canvas {
+    height: 50% !important;
+    top: 50% !important;
+  }
+}
