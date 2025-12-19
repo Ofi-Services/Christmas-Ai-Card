@@ -5,8 +5,10 @@ import './App.css'
 function App() {
   const [currentSlide, setCurrentSlide] = useState(0)
   const [isAnimating, setIsAnimating] = useState(false)
+  const [animationDirection, setAnimationDirection] = useState('forward')
   const [isMobile, setIsMobile] = useState(false)
   const [isPlaying, setIsPlaying] = useState(false)
+  const [isPaused, setIsPaused] = useState(false)
   const audioRef = useRef(null)
 
   // Detect mobile device
@@ -33,65 +35,94 @@ function App() {
     }
   }
 
-  // Client data for AkzoNobel from Ofi Services
+  const togglePause = () => {
+    setIsPaused(!isPaused)
+  }
+
+  // Client data for Envalior from Ofi Services
   const clientData = {
-    companyName: "AkzoNobel",
+    companyName: "Envalior",
     year: 2025,
-    totalProjects: 12,
-    successRate: 98,
-    costSavings: 250000,
-    efficiency: 35,
-    teamSize: 8,
-    technologies: ["React", "Node.js", "AWS", "Python", "AI/ML"],
+    totalDeliverables: 17,
+    totalDomains: 5,
+    costSavings: 175000,
+    teamGrowth: "6 to 20",
+    initialTeam: 6,
+    currentTeam: 20,
+    commitment: "3 years",
+    technologies: ["Celonis OCPM", "AI Agents", "Copilot", "Process Mining", "Analytics"],
     keyAchievements: [
-      "Launched 3 major products",
-      "Reduced processing time by 60%", 
-      "Implemented AI automation",
-      "Expanded to 2 new markets"
+      "OCPM Pilot: Migrated SCM App to production",
+      "10 Apps + 1 Agent + 1 Copilot delivered",
+      "67% reduction in partial deliveries (746→246)",
+      "On-time rate improved by 2.33%",
+      "In-full rate improved: 99.7% → 99.8%",
+      "Late payments reduced by 3.35%",
+      "EUR 175K realized through Tariff App"
+    ],
+    domains: [
+      "TAX: AP Starter Kit",
+      "AR: Collection & Disputes",
+      "Procurement: Supplier Risk",
+      "CPM: Process Management Migration",
+      "SCM: 6 Apps + 1 Agent + 1 Copilot",
+      "Logistics: 2 Apps + 1 Agent (OBD Transport, Tariff)"
     ]
   }
 
   const slides = [
     {
       type: 'welcome',
-      title: '🎄 Our 2025 Wrapped',
-      subtitle: `${clientData.companyName}, let's celebrate an amazing year together!`
+      title: '🎄 Our 2025 Journey',
+      subtitle: `${clientData.companyName}, celebrating a year of transformation together!`
     },
     {
-      type: 'projects',
-      title: `${clientData.totalProjects} Projects Delivered`,
-      subtitle: 'Every single one crafted with excellence'
+      type: 'story',
+      title: '💙 Our Love Story',
+      subtitle: 'Started with POV in 2024, fell in love with OTIF, and committed for 3 years'
     },
     {
-      type: 'success',
-      title: `${clientData.successRate}% Success Rate`,
-      subtitle: 'Exceeding expectations, every time'
+      type: 'deliverables',
+      title: `${clientData.totalDeliverables} Deliverables`,
+      subtitle: '10 Apps • 2 Agents • 1 Pilot Migration • 4 Starter Kits • 1 Migration • CPM'
+    },
+    {
+      type: 'domains',
+      title: `${clientData.totalDomains} Domains Transformed`,
+      subtitle: 'SCM • AR • Procurement • Logistics • TAX • CPM',
+      list: clientData.domains
+    },
+    {
+      type: 'impact',
+      title: '📈 Business Impact',
+      subtitle: 'Real results that drive value',
+      list: [
+        'On-time rate improved by 2.33%',
+        'In-full rate: 99.7% → 99.8%',
+        'Late payments reduced by 3.35%',
+        'Partial deliveries: 746 → 246 (67% drop)'
+      ]
     },
     {
       type: 'savings',
-      title: `$${clientData.costSavings.toLocaleString()} Saved`,
-      subtitle: 'Smart solutions that maximize your ROI'
-    },
-    {
-      type: 'efficiency',
-      title: `+${clientData.efficiency}% Efficiency`,
-      subtitle: 'Streamlined processes for better results'
+      title: `EUR ${(clientData.costSavings / 1000).toFixed(0)}K Realized`,
+      subtitle: 'Through Tariff App optimization'
     },
     {
       type: 'team',
-      title: `${clientData.teamSize} Dedicated Experts`,
-      subtitle: 'Your success is our mission'
+      title: `${clientData.teamGrowth} Team Members`,
+      subtitle: 'Growing together to serve you better'
     },
     {
       type: 'tech',
-      title: 'Technologies Mastered',
-      subtitle: 'Cutting-edge tools for modern solutions',
+      title: 'Technologies Deployed',
+      subtitle: 'Powered by Celonis excellence',
       list: clientData.technologies
     },
     {
       type: 'achievements',
-      title: 'Key Achievements',
-      subtitle: 'Milestones we reached together',
+      title: '🌟 Key Milestones',
+      subtitle: 'What we built together',
       list: clientData.keyAchievements
     },
     {
@@ -104,6 +135,7 @@ function App() {
 
   const nextSlide = useCallback(() => {
     if (currentSlide < slides.length - 1) {
+      setAnimationDirection('forward')
       setIsAnimating(true)
       setTimeout(() => {
         setCurrentSlide(currentSlide + 1)
@@ -114,6 +146,7 @@ function App() {
 
   const prevSlide = () => {
     if (currentSlide > 0) {
+      setAnimationDirection('backward')
       setIsAnimating(true)
       setTimeout(() => {
         setCurrentSlide(currentSlide - 1)
@@ -124,14 +157,16 @@ function App() {
 
   // Auto-advance slides (optional)
   useEffect(() => {
+    if (isPaused) return
+    
     const timer = setTimeout(() => {
       if (currentSlide < slides.length - 1) {
         nextSlide()
       }
-    }, 4000) // 4 seconds per slide
+    }, 10000) // 10 seconds per slide
 
     return () => clearTimeout(timer)
-  }, [currentSlide, nextSlide, slides.length])
+  }, [currentSlide, nextSlide, slides.length, isPaused])
 
   const slide = slides[currentSlide]
 
@@ -151,11 +186,20 @@ function App() {
       >
       </button>
       
+      <button 
+        onClick={togglePause}
+        className="pause-toggle-btn"
+        aria-label={isPaused ? "Resume slides" : "Pause slides"}
+        title={isPaused ? "Resume auto-advance" : "Pause auto-advance"}
+      >
+        {isPaused ? '▶' : '⏸'}
+      </button>
+      
       <div className="christmas-bg">
         <div className="top-logos">
           <img src="/ofi-logo.png" alt="Ofi Services" className="company-logo" />
           <span className="plus-sign">+</span>
-          <img src="/client-logo.png" alt="AkzoNobel" className="company-logo" />
+          <img src="/client-logo.png" alt="Envalior" className="company-logo client-logo" />
         </div>
         <ParticlesBg 
           key={isMobile ? 'mobile' : 'desktop'}
@@ -179,7 +223,7 @@ function App() {
         />
       </div>
       
-      <div className={`slide ${isAnimating ? 'animating' : ''}`}>
+      <div className={`slide ${isAnimating ? 'animating ' + animationDirection : animationDirection === 'backward' ? 'from-left' : 'from-right'}`}>
         <div className="slide-content">
           <div className="slide-header">
             <h1 className="slide-title">{slide.title}</h1>
@@ -190,7 +234,6 @@ function App() {
             <div className="slide-list">
               {slide.list.map((item, index) => (
                 <div key={index} className="list-item">
-                  <span className="list-bullet">✨</span>
                   {item}
                 </div>
               ))}
