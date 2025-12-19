@@ -119,7 +119,7 @@ function App() {
     },
     {
       type: 'domains',
-      title: `${clientData.totalDomains} Domains Transformed`,
+      title: `Building the Future Together: Our 2025 Milestones.`,
       subtitle: 'SCM • AR • Procurement • Logistics • TAX • CPM',
       list: clientData.domains
     },
@@ -158,8 +158,8 @@ function App() {
     },
     {
       type: 'thanks',
-      title: 'Thank You! 🎅',
-      subtitle: `Here's to an even more successful ${clientData.year + 1}!`,
+      title: ' Thank you for your trust and partnership this year. ',
+      subtitle: `We look forward to reaching new heights together in ${clientData.year + 1}!`,
       footer: 'With warm wishes from the Ofi Services team'
     }
   ]
@@ -247,6 +247,26 @@ function App() {
         />
       </div>
       
+      {isPlaying && (
+        <div className="snowfall">
+          {[...Array(50)].map((_, i) => (
+            <div
+              key={i}
+              className="snowflake"
+              style={{
+                left: `${Math.random() * 100}%`,
+                animationDelay: `${Math.random() * 5}s`,
+                animationDuration: `${5 + Math.random() * 10}s`,
+                fontSize: `${10 + Math.random() * 20}px`,
+                opacity: Math.random() * 0.8 + 0.2
+              }}
+            >
+              ❄
+            </div>
+          ))}
+        </div>
+      )}
+      
       <div className="progress-bar-top">
         <div 
           className="progress-fill-top" 
@@ -269,7 +289,13 @@ function App() {
           {slide.list && (
             <div className="slide-list">
               {slide.list.map((item, index) => (
-                <div key={index} className="list-item">
+                <div 
+                  key={index} 
+                  className="list-item"
+                  style={{
+                    animationDelay: `${0.8 + index * 0.4}s`
+                  }}
+                >
                   {item}
                 </div>
               ))}
@@ -299,7 +325,7 @@ function App() {
               className="nav-btn next" 
               onClick={nextSlide}
             >
-              Next →
+              {currentSlide === 0 ? 'Start →' : 'Next →'}
             </button>
           )}
         </div>
