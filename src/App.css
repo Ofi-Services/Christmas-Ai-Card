@@ -388,6 +388,7 @@
     position: static;
     margin-top: 2rem;
     transform: none;
+    display: none;
   }
   
   /* Particle positioning on mobile */

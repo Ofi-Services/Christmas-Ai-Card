@@ -10,6 +10,8 @@ function App() {
   const [isPlaying, setIsPlaying] = useState(false)
   const [isPaused, setIsPaused] = useState(false)
   const audioRef = useRef(null)
+  const touchStartX = useRef(null)
+  const touchEndX = useRef(null)
 
   // Detect mobile device
   useEffect(() => {
@@ -22,6 +24,35 @@ function App() {
     
     return () => window.removeEventListener('resize', checkMobile)
   }, [])
+
+  // Handle swipe gestures
+  const handleTouchStart = (e) => {
+    touchStartX.current = e.touches[0].clientX
+  }
+
+  const handleTouchMove = (e) => {
+    touchEndX.current = e.touches[0].clientX
+  }
+
+  const handleTouchEnd = () => {
+    if (!touchStartX.current || !touchEndX.current) return
+    
+    const distance = touchStartX.current - touchEndX.current
+    const minSwipeDistance = 50
+    
+    if (Math.abs(distance) > minSwipeDistance) {
+      if (distance > 0) {
+        // Swiped left - go to next slide
+        nextSlide()
+      } else {
+        // Swiped right - go to previous slide
+        prevSlide()
+      }
+    }
+    
+    touchStartX.current = null
+    touchEndX.current = null
+  }
 
   const toggleMusic = () => {
     if (audioRef.current) {
@@ -144,7 +175,7 @@ function App() {
     }
   }, [currentSlide, slides.length])
 
-  const prevSlide = () => {
+  const prevSlide = useCallback(() => {
     if (currentSlide > 0) {
       setAnimationDirection('backward')
       setIsAnimating(true)
@@ -153,7 +184,7 @@ function App() {
         setIsAnimating(false)
       }, 500)
     }
-  }
+  }, [currentSlide])
 
   // Auto-advance slides (optional)
   useEffect(() => {
@@ -223,7 +254,12 @@ function App() {
         />
       </div>
       
-      <div className={`slide ${isAnimating ? 'animating ' + animationDirection : animationDirection === 'backward' ? 'from-left' : 'from-right'}`}>
+      <div 
+        className={`slide ${isAnimating ? 'animating ' + animationDirection : animationDirection === 'backward' ? 'from-left' : 'from-right'}`}
+        onTouchStart={handleTouchStart}
+        onTouchMove={handleTouchMove}
+        onTouchEnd={handleTouchEnd}
+      >
         <div className="slide-content">
           <div className="slide-header">
             <h1 className="slide-title">{slide.title}</h1>
