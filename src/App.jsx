@@ -286,6 +286,44 @@ function App() {
             <p className="slide-subtitle">{slide.subtitle}</p>
           </div>
           
+          {slide.type === 'team' && (
+            <div className="growth-graph-container">
+              <svg className="growth-graph" viewBox="0 0 400 150" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                  <linearGradient id="goldGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="0%" style={{stopColor: '#cca23f', stopOpacity: 1}} />
+                    <stop offset="100%" style={{stopColor: '#e6c466', stopOpacity: 1}} />
+                  </linearGradient>
+                </defs>
+                
+                {/* Graph line */}
+                <path
+                  className="graph-line"
+                  d="M 50 120 Q 150 100, 200 60 T 350 30"
+                  fill="none"
+                  stroke="url(#goldGradient)"
+                  strokeWidth="3"
+                  strokeLinecap="round"
+                />
+                
+                {/* Start point - 6 */}
+                <circle cx="50" cy="120" r="5" fill="#cca23f" className="graph-point start-point" />
+                <text x="50" y="145" textAnchor="middle" fill="#cca23f" fontSize="18" fontWeight="bold" className="graph-label">6</text>
+                
+                {/* End point - 20 */}
+                <circle cx="350" cy="30" r="5" fill="#e6c466" className="graph-point end-point" />
+                <text x="350" y="55" textAnchor="middle" fill="#e6c466" fontSize="18" fontWeight="bold" className="graph-label">20</text>
+                
+                {/* Sparkle at end */}
+                <g className="sparkle" transform="translate(350, 30)">
+                  <polygon points="0,-8 2,-2 8,0 2,2 0,8 -2,2 -8,0 -2,-2" fill="#FFD700" opacity="0">
+                    <animate attributeName="opacity" values="0;1;0" dur="1s" begin="2s" repeatCount="3" />
+                  </polygon>
+                </g>
+              </svg>
+            </div>
+          )}
+          
           {slide.list && (
             <div className="slide-list">
               {slide.list.map((item, index) => (
