@@ -111,11 +111,12 @@ function App() {
     ],
     domains: [
 
-      "TAX: 1 App",
-      "AR: 2 Apps",
-      "Procurement: 2 Apps",
+      "AP: 1 Starter Kit",
+      "AR: 1 App + 1 Starter Kit",
+      
       "Logistics: 2 Apps + 1 Agent",
       "CPM: Migration & Configuration",
+      "Procurement: 1 App + 1 Starter Kit",
       "SCM: 6 Apps + 1 Agent + 1 Copilot",
     ]
   }
