@@ -172,7 +172,7 @@ function App() {
     },
     {
       type: 'userGrowth',
-      title: '👥 Growing Together: Envalior Team Adoption',
+      title: ' Growing Together',
       subtitle: 'Not just our team - your engagement has skyrocketed!',
       stats: {
         year2024: { users: 209, logins: 13974 },
@@ -381,7 +381,7 @@ function App() {
               </div>
               
               <div className="trends-container">
-                <div className="trend-title">📊 12-Month Trends</div>
+                <div className="trend-title">Growth This Year</div>
                 <div className="trends-grid">
                   <div className="trend-item">
                     <div className="trend-value">{slide.stats.trends.logins}↑</div>
