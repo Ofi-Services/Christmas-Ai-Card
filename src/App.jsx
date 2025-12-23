@@ -171,6 +171,16 @@ function App() {
       subtitle: 'Growing together to serve you better'
     },
     {
+      type: 'userGrowth',
+      title: '👥 Growing Together: Envalior Team Adoption',
+      subtitle: 'Not just our team - your engagement has skyrocketed!',
+      stats: {
+        year2024: { users: 209, logins: 13974 },
+        year2025: { users: 430, logins: 44189 },
+        trends: { logins: '221%', users: '108,2%' }
+      }
+    },
+    {
       type: 'tech',
       title: 'Technologies Deployed',
       subtitle: '',
@@ -337,6 +347,52 @@ function App() {
                   </polygon>
                 </g>
               </svg>
+            </div>
+          )}
+          
+          {slide.type === 'userGrowth' && slide.stats && (
+            <div className="user-growth-container">
+              <div className="stats-comparison">
+                <div className="stat-card year-2024">
+                  <div className="stat-year">2024</div>
+                  <div className="stat-item">
+                    <div className="stat-value">{slide.stats.year2024.users}</div>
+                    <div className="stat-label">Users</div>
+                  </div>
+                  <div className="stat-item">
+                    <div className="stat-value">{slide.stats.year2024.logins.toLocaleString()}</div>
+                    <div className="stat-label">Logins</div>
+                  </div>
+                </div>
+                
+                <div className="arrow-separator">→</div>
+                
+                <div className="stat-card year-2025">
+                  <div className="stat-year">2025</div>
+                  <div className="stat-item">
+                    <div className="stat-value">{slide.stats.year2025.users}</div>
+                    <div className="stat-label">Users</div>
+                  </div>
+                  <div className="stat-item">
+                    <div className="stat-value">{slide.stats.year2025.logins.toLocaleString()}</div>
+                    <div className="stat-label">Logins</div>
+                  </div>
+                </div>
+              </div>
+              
+              <div className="trends-container">
+                <div className="trend-title">📊 12-Month Trends</div>
+                <div className="trends-grid">
+                  <div className="trend-item">
+                    <div className="trend-value">{slide.stats.trends.logins}↑</div>
+                    <div className="trend-label">Login Growth</div>
+                  </div>
+                  <div className="trend-item">
+                    <div className="trend-value">{slide.stats.trends.users}↑</div>
+                    <div className="trend-label">User Growth</div>
+                  </div>
+                </div>
+              </div>
             </div>
           )}
           
