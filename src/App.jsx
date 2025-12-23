@@ -9,7 +9,10 @@ function App() {
   const [isMobile, setIsMobile] = useState(false)
   const [isPlaying, setIsPlaying] = useState(false)
   const [isPaused, setIsPaused] = useState(false)
+  const [showIntro, setShowIntro] = useState(true)
+  const [playGif, setPlayGif] = useState(false)
   const audioRef = useRef(null)
+  const gifRef = useRef(null)
   const touchStartX = useRef(null)
   const touchEndX = useRef(null)
 
@@ -23,6 +26,24 @@ function App() {
     window.addEventListener('resize', checkMobile)
     
     return () => window.removeEventListener('resize', checkMobile)
+  }, [])
+
+  // Hide intro screen after animation
+  useEffect(() => {
+    // Start playing gif after 1 second pause
+    const playTimer = setTimeout(() => {
+      setPlayGif(true)
+    }, 1000)
+    
+    // Hide intro after 6 seconds total
+    const hideTimer = setTimeout(() => {
+      setShowIntro(false)
+    }, 6000)
+    
+    return () => {
+      clearTimeout(playTimer)
+      clearTimeout(hideTimer)
+    }
   }, [])
 
   // Handle swipe gestures
@@ -81,23 +102,24 @@ function App() {
     initialTeam: 6,
     currentTeam: 20,
     commitment: "3 years",
-    technologies: ["Celonis OCPM", "AI Agents", "Copilot", "Process Mining", "Analytics"],
+    technologies: ["Celonis OCPM", "AI Agents", "Copilot", "Process Mining", "Analytics", "CPM", "PAM", "Orchestration Engine"],
     keyAchievements: [
       "OCPM Pilot: Migrated SCM App to production",
       "10 Apps + 1 Agent + 1 Copilot delivered",
-      "67% reduction in partial deliveries (746→246)",
-      "On-time rate improved by 2.33%",
-      "In-full rate improved: 99.7% → 99.8%",
-      "Late payments reduced by 3.35%",
+      "67,00% reduction in partial deliveries (746→246)",
+      "On-time rate improved by 2,33%",
+      "In-full rate improved: 99,70% → 99,80%",
+      "Late payments reduced by 3,35%",
       "EUR 175K realized through Tariff App"
     ],
     domains: [
-      "TAX: AP Starter Kit",
-      "AR: Collection & Disputes",
-      "Procurement: Supplier Risk",
-      "CPM: Process Management Migration",
+
+      "TAX: 1 App",
+      "AR: 2 Apps",
+      "Procurement: 2 Apps",
+      "Logistics: 2 Apps + 1 Agent",
+      "CPM: Migration & Configuration",
       "SCM: 6 Apps + 1 Agent + 1 Copilot",
-      "Logistics: 2 Apps + 1 Agent (OBD Transport, Tariff)"
     ]
   }
 
@@ -114,12 +136,12 @@ function App() {
     },
     {
       type: 'deliverables',
-      title: `${clientData.totalDeliverables} Deliverables`,
-      subtitle: '10 Apps • 2 Agents • 1 Pilot Migration • 4 Starter Kits • 1 Migration • CPM'
+      title: `18 Deliverables`,
+      subtitle: '10 Apps • 2 Agents • 1 Pilot Migration • 4 Starter Kits • CPM'
     },
     {
       type: 'domains',
-      title: `Building the Future Together: Our 2025 Milestones.`,
+      title: `Building the Future Together: Our impacted Domains.`,
       subtitle: 'SCM • AR • Procurement • Logistics • TAX • CPM',
       list: clientData.domains
     },
@@ -128,20 +150,26 @@ function App() {
       title: '📈 Business Impact',
       subtitle: 'Real results that drive value',
       list: [
-        'On-time rate improved by 2.33%',
-        'In-full rate: 99.7% → 99.8%',
-        'Late payments reduced by 3.35%',
-        'Partial deliveries: 746 → 246 (67% drop)'
+        'On-time rate improved by 2,33%',
+        'In-full rate: 99,70% → 99,80%',
+        'Late payments reduced by 3,35%',
+        'Partial deliveries: 746 → 246 (67,00% drop)'
       ]
     },
     {
       type: 'savings',
-      title: `EUR ${(clientData.costSavings / 1000).toFixed(0)}K Realized`,
-      subtitle: 'Through Tariff App optimization'
+      title: `EUR 0M Realized in 2025`,
+      subtitle: 'Through optimization across multiple apps',
+      list: [
+        'TARIFF: €0,0 k value realized Since ( month of go live)',
+        'CCS: €0,0 k value realized Since ( month of go live)',
+        'OTIF: €0,0 k value realized Since ( month of go live)',
+        'SAILFIN: €0,0 k value realized Since ( month of go live)'
+      ]
     },
     {
       type: 'team',
-      title: `${clientData.teamGrowth} Team Members`,
+      title: `We initiated our journey with a team of ${clientData.initialTeam} and have now grown to more than ${clientData.currentTeam} experts!`,
       subtitle: 'Growing together to serve you better'
     },
     {
@@ -149,12 +177,6 @@ function App() {
       title: 'Technologies Deployed',
       subtitle: 'Powered by Celonis excellence',
       list: clientData.technologies
-    },
-    {
-      type: 'achievements',
-      title: '🌟 Key Milestones',
-      subtitle: 'What we built together',
-      list: clientData.keyAchievements
     },
     {
       type: 'thanks',
@@ -203,6 +225,18 @@ function App() {
 
   return (
     <div className="app">
+      {showIntro && (
+        <div className="intro-screen" onClick={() => setShowIntro(false)}>
+          <img 
+            ref={gifRef}
+            src="/intro.gif" 
+            alt="Welcome" 
+            className="intro-gif"
+          />
+          <p className="intro-skip">Click to skip</p>
+        </div>
+      )}
+      
       <audio 
         ref={audioRef}
         src="/christmas-music.mp3" 
