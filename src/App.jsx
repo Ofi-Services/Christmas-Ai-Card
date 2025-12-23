@@ -156,13 +156,13 @@ function App() {
     },
     {
       type: 'savings',
-      title: `EUR 0M Realized in 2025`,
-      subtitle: 'Through optimization across multiple apps',
+      title: `Together, we have realized €1.38M in value this year`,
+      subtitle: 'Apps have been tracked value since September',
       list: [
-        'TARIFF: €0,0 k value realized Since ( month of go live)',
-        'CCS: €0,0 k value realized Since ( month of go live)',
-        'OTIF: €0,0 k value realized Since ( month of go live)',
-        'SAILFIN: €0,0 k value realized Since ( month of go live)'
+        'TARIFF: €175k value realized',
+        'CCS: €484k value realized',
+        'OTIF: €718k value realized',
+        'SAILFIN: €0k value realized'
       ]
     },
     {
