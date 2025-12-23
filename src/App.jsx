@@ -8,9 +8,9 @@ function App() {
   const [animationDirection, setAnimationDirection] = useState('forward')
   const [isMobile, setIsMobile] = useState(false)
   const [isPlaying, setIsPlaying] = useState(false)
-  const [isPaused, setIsPaused] = useState(false)
   const [showIntro, setShowIntro] = useState(true)
   const [playGif, setPlayGif] = useState(false)
+  const [hasSwipedOnce, setHasSwipedOnce] = useState(false)
   const audioRef = useRef(null)
   const gifRef = useRef(null)
   const touchStartX = useRef(null)
@@ -62,6 +62,7 @@ function App() {
     const minSwipeDistance = 50
     
     if (Math.abs(distance) > minSwipeDistance) {
+      setHasSwipedOnce(true)
       if (distance > 0) {
         // Swiped left - go to next slide
         nextSlide()
@@ -85,10 +86,6 @@ function App() {
         setIsPlaying(true)
       }
     }
-  }
-
-  const togglePause = () => {
-    setIsPaused(!isPaused)
   }
 
   // Client data for Envalior from Ofi Services
@@ -175,7 +172,7 @@ function App() {
     {
       type: 'tech',
       title: 'Technologies Deployed',
-      subtitle: 'Powered by Celonis excellence',
+      subtitle: '',
       list: clientData.technologies
     },
     {
@@ -208,19 +205,6 @@ function App() {
     }
   }, [currentSlide])
 
-  // Auto-advance slides (optional)
-  useEffect(() => {
-    if (isPaused) return
-    
-    const timer = setTimeout(() => {
-      if (currentSlide < slides.length - 1) {
-        nextSlide()
-      }
-    }, 10000) // 10 seconds per slide
-
-    return () => clearTimeout(timer)
-  }, [currentSlide, nextSlide, slides.length, isPaused])
-
   const slide = slides[currentSlide]
 
   return (
@@ -249,15 +233,6 @@ function App() {
         className="music-toggle-btn"
         aria-label={isPlaying ? "Pause music" : "Play music"}
       >
-      </button>
-      
-      <button 
-        onClick={togglePause}
-        className="pause-toggle-btn"
-        aria-label={isPaused ? "Resume slides" : "Pause slides"}
-        title={isPaused ? "Resume auto-advance" : "Pause auto-advance"}
-      >
-        {isPaused ? '▶' : '⏸'}
       </button>
       
       <div className="christmas-bg">
@@ -307,6 +282,12 @@ function App() {
           style={{ width: `${((currentSlide + 1) / slides.length) * 100}%` }}
         />
       </div>
+      
+      {isMobile && !hasSwipedOnce && (
+        <div className="mobile-swipe-hint">
+          👆 Swipe to navigate
+        </div>
+      )}
       
       <div 
         className={`slide ${isAnimating ? 'animating ' + animationDirection : animationDirection === 'backward' ? 'from-left' : 'from-right'}`}
