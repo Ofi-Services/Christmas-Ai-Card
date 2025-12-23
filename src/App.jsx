@@ -140,7 +140,7 @@ function App() {
     {
       type: 'domains',
       title: `Building the Future Together: Our impacted Domains.`,
-      subtitle: 'SCM • AR • Procurement • Logistics • TAX • CPM',
+      subtitle: 'SCM • AR • Procurement • Logistics • AP • CPM',
       list: clientData.domains
     },
     {
@@ -151,7 +151,7 @@ function App() {
         'On-time rate improved by 2,33%',
         'In-full rate: 99,70% → 99,80%',
         'Late payments reduced by 3,35%',
-        'Partial deliveries: 746 → 246 (67,00% drop)'
+        'Partial deliveries: 746 → 246 (67% drop)'
       ]
     },
     {
