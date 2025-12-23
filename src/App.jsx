@@ -145,7 +145,7 @@ function App() {
     },
     {
       type: 'impact',
-      title: '📈 Business Impact',
+      title: ' Business Impact',
       subtitle: 'Real results that drive value',
       list: [
         'On-time rate improved by 2,33%',
@@ -173,11 +173,11 @@ function App() {
     {
       type: 'userGrowth',
       title: ' Growing Together',
-      subtitle: 'Not just our team - your engagement has skyrocketed!',
+      subtitle: 'Not just our team - Your engagement has skyrocketed!',
       stats: {
-        year2024: { users: 209, logins: 13974 },
-        year2025: { users: 430, logins: 44189 },
-        trends: { logins: '221%', users: '108,2%' }
+        year2024: { users: 140, logins: 12411 },
+        year2025: { users: 352, logins: 42391 },
+        trends: { logins: '246,8%', users: '151,1%' }
       }
     },
     {
@@ -338,7 +338,7 @@ function App() {
                 
                 {/* End point - 20 */}
                 <circle cx="350" cy="30" r="5" fill="#e6c466" className="graph-point end-point" />
-                <text x="350" y="55" textAnchor="middle" fill="#e6c466" fontSize="18" fontWeight="bold" className="graph-label">20</text>
+                <text x="350" y="55" textAnchor="middle" fill="#e6c466" fontSize="18" fontWeight="bold" className="graph-label">+20</text>
                 
                 {/* Sparkle at end */}
                 <g className="sparkle" transform="translate(350, 30)">
