@@ -188,8 +188,8 @@ function App() {
     },
     {
       type: 'thanks',
-      title: ' Thank you for your trust and partnership this year. ',
-      subtitle: `We look forward to reaching new heights together in ${clientData.year + 1}!`,
+      title: 'Thank you for your trust and partnership this year. ',
+      subtitle: `🎄✨We look forward to reaching new heights together in ${clientData.year + 1}!🎄✨`,
       footer: 'With warm wishes from your OFI team'
     }
   ]
