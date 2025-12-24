@@ -156,7 +156,7 @@ function App() {
     },
     {
       type: 'savings',
-      title: `Together, we have realized €1.38M in value this year`,
+      title: `Together, we have realized €2.58M in value this year`,
       subtitle: 'Apps have been tracked value since September',
       list: [
         'TARIFF: €175k value realized',
