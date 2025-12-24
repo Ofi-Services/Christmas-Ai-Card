@@ -162,7 +162,7 @@ function App() {
         'TARIFF: €175k value realized',
         'CCS: €484k value realized',
         'OTIF: €718k value realized',
-        'SAILFIN: €0k value realized'
+        'SAILFIN: €1,2M value realized'
       ]
     },
     {
