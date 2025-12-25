@@ -428,7 +428,7 @@ function App() {
           {slide.image && (
             <div className="team-image-container">
               <img 
-                src={showChristmasHats ? '/Image2.png' : slide.image} 
+                src={showChristmasHats ? '/Image2.jpg' : slide.image} 
                 alt="Team" 
                 className={`team-image ${showChristmasHats ? 'image-transition' : ''}`}
                 onClick={handleTeamImageClick}
