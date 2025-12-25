@@ -190,7 +190,8 @@ function App() {
       type: 'thanks',
       title: 'Thank you for your trust and partnership this year. ',
       subtitle: `🎄✨We look forward to reaching new heights together in ${clientData.year + 1}!🎄✨`,
-      footer: 'With warm wishes from your OFI team'
+      footer: 'With warm wishes from your OFI team',
+      image: '/Image.jpg'
     }
   ]
 
@@ -247,7 +248,7 @@ function App() {
       </button>
       
       <div className="christmas-bg">
-        <div className="top-logos">
+        <div className="top-logos" style={{ display: currentSlide === slides.length - 1 ? 'none' : 'flex' }}>
           <img src="/ofi-logo.png" alt="Ofi Services" className="company-logo" />
           <span className="plus-sign">+</span>
           <img src="/client-logo.png" alt="Envalior" className="company-logo client-logo" />
@@ -409,6 +410,12 @@ function App() {
                   {item}
                 </div>
               ))}
+            </div>
+          )}
+          
+          {slide.image && (
+            <div className="team-image-container">
+              <img src={slide.image} alt="Team" className="team-image" />
             </div>
           )}
           

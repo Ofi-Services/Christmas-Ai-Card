@@ -521,6 +521,30 @@
   font-weight: 500;
 }
 
+.team-image-container {
+  margin: 2rem auto;
+  max-width: 500px;
+  width: 100%;
+  padding: 0 1rem;
+  animation: fadeInUp 0.8s ease-out forwards;
+  animation-delay: 0.3s;
+  opacity: 0;
+}
+
+.team-image {
+  width: 100%;
+  height: auto;
+  border-radius: 15px;
+  box-shadow: 0 8px 30px rgba(204, 162, 63, 0.3);
+  border: 2px solid rgba(204, 162, 63, 0.2);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.team-image:hover {
+  transform: scale(1.02);
+  box-shadow: 0 12px 40px rgba(204, 162, 63, 0.4);
+}
+
 .slide-footer {
   margin-top: 2rem;
 }
