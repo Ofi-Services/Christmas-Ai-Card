@@ -11,6 +11,8 @@ function App() {
   const [showIntro, setShowIntro] = useState(true)
   const [playGif, setPlayGif] = useState(false)
   const [hasSwipedOnce, setHasSwipedOnce] = useState(false)
+  const [showChristmasHats, setShowChristmasHats] = useState(false)
+  const [showChristmasAnimation, setShowChristmasAnimation] = useState(false)
   const audioRef = useRef(null)
   const gifRef = useRef(null)
   const touchStartX = useRef(null)
@@ -86,6 +88,16 @@ function App() {
         setIsPlaying(true)
       }
     }
+  }
+
+  const handleTeamImageClick = () => {
+    setShowChristmasAnimation(true)
+    setTimeout(() => {
+      setShowChristmasHats(true)
+      setTimeout(() => {
+        setShowChristmasAnimation(false)
+      }, 2000)
+    }, 500)
   }
 
   // Client data for Envalior from Ofi Services
@@ -415,7 +427,31 @@ function App() {
           
           {slide.image && (
             <div className="team-image-container">
-              <img src={slide.image} alt="Team" className="team-image" />
+              <img 
+                src={showChristmasHats ? '/Image2.png' : slide.image} 
+                alt="Team" 
+                className={`team-image ${showChristmasHats ? 'image-transition' : ''}`}
+                onClick={handleTeamImageClick}
+                style={{ cursor: 'pointer' }}
+              />
+              {showChristmasAnimation && (
+                <div className="christmas-magic-animation">
+                  {[...Array(30)].map((_, i) => (
+                    <div
+                      key={i}
+                      className="magic-sparkle"
+                      style={{
+                        left: `${Math.random() * 100}%`,
+                        top: `${Math.random() * 100}%`,
+                        animationDelay: `${Math.random() * 0.5}s`,
+                        fontSize: `${10 + Math.random() * 20}px`
+                      }}
+                    >
+                      {['🎅', '🎄', '⭐', '❄️', '🎁'][Math.floor(Math.random() * 5)]}
+                    </div>
+                  ))}
+                </div>
+              )}
             </div>
           )}
           
@@ -425,27 +461,23 @@ function App() {
             </div>
           )}
         </div>
-        
-
-        
-        <div className="navigation">
-          {currentSlide > 0 && (
-            <button 
-              className="nav-btn prev" 
-              onClick={prevSlide}
-            >
-              ← Previous
-            </button>
-          )}
-          {currentSlide < slides.length - 1 && (
-            <button 
-              className="nav-btn next" 
-              onClick={nextSlide}
-            >
-              {currentSlide === 0 ? 'Start →' : 'Next →'}
-            </button>
-          )}
-        </div>
+      </div>
+      
+      <div className="navigation">
+        <button 
+          className="nav-btn prev" 
+          onClick={prevSlide}
+          style={{ visibility: currentSlide > 0 ? 'visible' : 'hidden' }}
+        >
+          ← Previous
+        </button>
+        <button 
+          className="nav-btn next" 
+          onClick={nextSlide}
+          style={{ visibility: currentSlide < slides.length - 1 ? 'visible' : 'hidden' }}
+        >
+          {currentSlide === 0 ? 'Start →' : 'Next →'}
+        </button>
       </div>
     </div>
   )
